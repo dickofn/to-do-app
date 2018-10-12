@@ -1,0 +1,24 @@
+{
+  "name": "to-do-apps",
+  "version": "1.0.0",
+  "description": "Simple To Do Apps",
+  "author": "Dicko Finus &lt;&lt;dickofn@gmail.com&gt;&gt;",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt --hostname 172.24.76.97",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "cross-env": "^5.2.0",
+    "nuxt": "^2.0.0",
+    "vuetify": "^1.2.4",
+    "@nuxtjs/axios": "^5.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2"
+  }
+}
