@@ -15,6 +15,9 @@ export const mutations = {
     'UPDATE_TASK'(state, index) {
         console.log(state.todos[index.indexTodo].tasks[index.indexTask].done);
         state.todos[index.indexTodo].tasks[index.indexTask].done = !state.todos[index.indexTodo].tasks[index.indexTask].done
+    },
+    'LOAD_TODOS'(state, responseData) {
+        state.todos = responseData
     }
 }
 
@@ -27,5 +30,13 @@ export const actions = {
     },
     updateTask({ commit }, index) {
         commit('UPDATE_TASK', index);
+    },
+    async loadTodos({ commit }) {
+        await this.$axios.get('/todos.json')
+            .then(res => {
+                if (res.status === 200) {
+                    commit('LOAD_TODOS', res.data)
+                }
+            })
     }
 }

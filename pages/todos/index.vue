@@ -4,10 +4,21 @@
       <v-icon v-if="!isCreating" dark>add</v-icon>
       <v-icon v-else dark>cancel</v-icon>
     </v-btn>
-    <v-layout v-if="!isCreating" row wrap>
-        <Todo v-for="(todo, index) in todos" :key="index + todo.title" :todo="todo" :indexTodo="index"/>
+    <v-btn fab dark color="green" v-if="!isCreating">
+      <v-icon dark @click="saveData">save</v-icon>
+    </v-btn>
+    <v-btn fab dark color="indigo" v-if="!isCreating">
+      <v-icon dark @click="loadData">get_app</v-icon>
+    </v-btn>
+    <v-layout v-if="!isCreating" row wrap="">
+      <Todo
+        v-for="(todo, index) in todos"
+        :key="index + todo.title"
+        :todo="todo"
+        :indexTodo="index"
+      />
     </v-layout>
-    <v-layout v-else align-center justify-space-between row wrap>
+    <v-layout v-else align-center justify-space-between row wrap="">
       <CreateTodo/>
     </v-layout>
   </v-container>
@@ -21,6 +32,16 @@ export default {
     return {
       isCreating: false
     };
+  },
+  methods: {
+    async saveData() {
+      await this.$axios
+        .put("/todos.json", this.$store.state.todos.todos)
+        .then(res => console.log(res));
+    },
+    loadData() {
+      this.$store.dispatch("todos/loadTodos");
+    }
   },
   computed: {
     todos() {
