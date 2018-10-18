@@ -2,17 +2,7 @@
   <v-app>
 
     <!-- Header -->
-    <v-toolbar class="">
-      <v-toolbar-title>
-        <nuxt-link class="title black-text" to="/">To Do</nuxt-link>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-toolbar-items>
-        <v-btn flat="flat" to="/">Home</v-btn>
-        <v-btn flat="flat" to="/todos">To Dos</v-btn>
-        <v-btn flat="flat" to="/about">About</v-btn>
-      </v-toolbar-items>
-    </v-toolbar>
+    <Header/>
 
     <!-- Content -->
     <v-content>
@@ -29,6 +19,16 @@
   </v-footer>
   </v-app>
 </template>
+
+<script>
+import Header from '@/components/layout/Header'
+export default {
+  components:{
+    Header
+  }
+}
+</script>
+
 
 <style scoped>
 .white-text{

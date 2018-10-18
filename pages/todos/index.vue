@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import Todo from "@/components/Todo";
-import CreateTodo from "@/components/CreateTodo";
+import Todo from "@/components/todos/Todo";
+import CreateTodo from "@/components/todos/CreateTodo";
 export default {
   data() {
     return {
