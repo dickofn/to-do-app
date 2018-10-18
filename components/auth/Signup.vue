@@ -63,8 +63,13 @@ export default {
     signUp() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
+        let authData = {
+          name: this.name,
+          email: this.email,
+          password: this.password
+        };
         this.error = "";
-        console.log("a");
+        this.$store.dispatch("auth/signUp", authData);
       } else {
         this.error = "*Please check the form again!";
       }

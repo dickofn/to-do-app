@@ -1,42 +1,45 @@
 <template>
   <v-app>
-
     <!-- Header -->
     <Header/>
-
     <!-- Content -->
     <v-content>
       <v-container>
-        <nuxt />
+        <nuxt/>
       </v-container>
     </v-content>
-
     <!-- Footer -->
     <v-footer class="pa-3">
       <v-spacer></v-spacer>
-      <div>&copy; {{ new Date().getFullYear() }} - <strong>To Do</strong></div>
+      <div>
+        &copy; {{ new Date().getFullYear() }} -
+        <strong>To Do</strong>
+      </div>
       <v-spacer></v-spacer>
-  </v-footer>
+    </v-footer>
   </v-app>
 </template>
 
 <script>
-import Header from '@/components/layout/Header'
+import Header from "@/components/layout/Header";
 export default {
-  components:{
+  components: {
     Header
+  },
+  created(){
+    this.$store.dispatch("auth/tryAutoSignIn")
   }
-}
+};
 </script>
 
 
 <style scoped>
-.white-text{
+.white-text {
   text-decoration: none;
   color: white;
 }
 
-.black-text{
+.black-text {
   text-decoration: none;
   color: #333;
 }
