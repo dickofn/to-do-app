@@ -10,14 +10,14 @@ export const mutations = {
         })
     },
     'DELETE_TODO'(state, index) {
-        state.todos.splice(index, 1)
+        state.todos.splice(index, 1);
     },
     'UPDATE_TASK'(state, index) {
         console.log(state.todos[index.indexTodo].tasks[index.indexTask].done);
-        state.todos[index.indexTodo].tasks[index.indexTask].done = !state.todos[index.indexTodo].tasks[index.indexTask].done
+        state.todos[index.indexTodo].tasks[index.indexTask].done = !state.todos[index.indexTodo].tasks[index.indexTask].done;
     },
     'LOAD_TODOS'(state, responseData) {
-        state.todos = responseData
+        state.todos = responseData;
     }
 }
 

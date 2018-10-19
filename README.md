@@ -4,7 +4,7 @@
 
 ## Build On
 
-Nuxt, which is alsow a Vue
+Nuxt, which is also a Vue
 
 Axios
 

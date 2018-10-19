@@ -10,7 +10,9 @@
             </v-btn>
             <v-dialog v-model="dialog" max-width="500px">
                 <v-card>
+                  <v-slide-y-transition hide-on-leave>
                     <component :is="sign" @changeToSignUp="signUp" @changeToSignIn="signIn"></component>
+                  </v-slide-y-transition>
                 </v-card>
             </v-dialog>
             <v-btn flat to="/">Home</v-btn>

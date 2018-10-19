@@ -25,9 +25,6 @@ import Header from "@/components/layout/Header";
 export default {
   components: {
     Header
-  },
-  created(){
-    this.$store.dispatch("auth/tryAutoSignIn")
   }
 };
 </script>

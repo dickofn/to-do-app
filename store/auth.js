@@ -19,11 +19,11 @@ export const mutations = {
 }
 
 export const actions = {
-    signUp({ commit, dispatch }, authData) {
-        
+    signUp(authData) {
+
     },
-    signIn({ commit, dispatch }, authData) {
-        
+    signIn({ commit }, authData) {
+
     },
     signOut({ commit }) {
         commit('clearAuthData')
