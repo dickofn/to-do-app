@@ -4,7 +4,7 @@
         <h3>
             Simple To Do app, created by Dicko Finus
             <br>
-            Vue, Nuxt, Vuex, Axios, iView
+            Vue, Nuxt, Vuex, Axios, Vuetify
         </h3>
     </div>
 </template>

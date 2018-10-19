@@ -1,49 +1,49 @@
 <template>
-    <v-card>
-        <v-card-title class="headline">Sign Up</v-card-title>
-        <form @keyup.enter="signUp">
-            <v-text-field
-                v-model="name"
-                :error-messages="nameErrors"
-                label="Name *"
-                required
-                @blur="$v.name.$touch()"
-                style="margin:5px 10px"
-            ></v-text-field>
-            <v-text-field
-                v-model="email"
-                :error-messages="emailErrors"
-                label="E-mail *"
-                required
-                @blur="$v.email.$touch()"
-                style="margin:5px 10px"
-            ></v-text-field>
-            <v-text-field
-                type="password"
-                v-model="password"
-                :error-messages="passwordErrors"
-                label="Password *"
-                required
-                @blur="$v.password.$touch()"
-                style="margin:5px 10px"
-            ></v-text-field>
-            <v-text-field
-                type="password"
-                v-model="confirmPassword"
-                :error-messages="confirmPasswordErrors"
-                label="Confirm Password *"
-                required
-                @blur="$v.confirmPassword.$touch()"
-                style="margin:5px 10px"
-            ></v-text-field>
-            <v-card-text v-if="error!=''" style="color:red; font-size:12px">{{error}}</v-card-text>
-            <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="green darken-1" flat @click="$emit('changeToSignIn')">Sign In</v-btn>
-                <v-btn color="green darken-1" dark @click="signUp">Sign Up</v-btn>
-            </v-card-actions>
-        </form>
-    </v-card>
+  <v-card>
+    <v-card-title class="headline">Sign Up</v-card-title>
+    <form @keyup.enter="signUp">
+      <v-text-field
+        v-model="name"
+        :error-messages="nameErrors"
+        label="Name *"
+        required
+        @blur="$v.name.$touch()"
+        style="margin:5px 10px"
+      ></v-text-field>
+      <v-text-field
+        v-model="email"
+        :error-messages="emailErrors"
+        label="E-mail *"
+        required
+        @blur="$v.email.$touch()"
+        style="margin:5px 10px"
+      ></v-text-field>
+      <v-text-field
+        type="password"
+        v-model="password"
+        :error-messages="passwordErrors"
+        label="Password *"
+        required
+        @blur="$v.password.$touch()"
+        style="margin:5px 10px"
+      ></v-text-field>
+      <v-text-field
+        type="password"
+        v-model="confirmPassword"
+        :error-messages="confirmPasswordErrors"
+        label="Confirm Password *"
+        required
+        @blur="$v.confirmPassword.$touch()"
+        style="margin:5px 10px"
+      ></v-text-field>
+      <v-card-text v-if="error!=''" style="color:red; font-size:12px">{{error}}</v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="green darken-1" flat @click="$emit('changeToSignIn')">Sign In</v-btn>
+        <v-btn color="green darken-1" dark @click="signUp">Sign Up</v-btn>
+      </v-card-actions>
+    </form>
+  </v-card>
 </template>
 
 <script>
@@ -63,13 +63,32 @@ export default {
     signUp() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        let authData = {
+        let userData = {
           name: this.name,
           email: this.email,
           password: this.password
         };
         this.error = "";
-        this.$store.dispatch("auth/signUp", authData);
+        this.$axios
+          .post(
+            "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyCbO7DQOZWbVs7Yeey60muwbXqxsNVJxGk",
+            userData
+          )
+          .then(res => {
+            let authData = {
+              token: res.data.idToken,
+              uid: res.data.localId,
+              user: userData
+            };
+            this.$store.dispatch("auth/signIn", authData);
+          });
+        userData = {
+          name: this.name,
+          email: this.email,        
+        };
+        this.$axios.post("/users.json", userData).then(() => {
+          this.$emit("closeDialog");
+        });
       } else {
         this.error = "*Please check the form again!";
       }

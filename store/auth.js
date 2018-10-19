@@ -1,31 +1,34 @@
 export const state = () => ({
-    idToken: null,
-    userId: null,
+    token: null,
+    uid: null,
     user: null
 })
 
 export const mutations = {
-    'AUTH_USER'(state, userData) {
-        state.idToken = userData.token
-        state.userId = userData.userId
-    },
-    'STORE_USER'(state, user) {
-        state.user = user
+    'AUTH_USER'(state, authData) {
+        state.token = authData.token
+        state.uid = authData.uid
+        state.user = authData.user
     },
     'CLEAR_AUTH'(state) {
-        state.idToken = null
-        state.userId = null
+        state.token = null
+        state.uid = null
+        state.user = null
     }
 }
 
 export const actions = {
-    signUp(authData) {
-
-    },
-    signIn({ commit }, authData) {
-
+    async signIn({ commit }, authData) {
+        await this.$axios.post("://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyCbO7DQOZWbVs7Yeey60muwbXqxsNVJxGk", authData)
+            .then(res => {
+                authData = {
+                    token: res.data.idToken,
+                    uid: res.data.localId
+                }
+                commit('AUTH_USER', authData)
+            })
     },
     signOut({ commit }) {
-        commit('clearAuthData')
+        commit('CLEAR_AUTH')
     }
 }

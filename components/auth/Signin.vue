@@ -51,12 +51,11 @@ export default {
       this.$v.$touch();
       if (!this.$v.$invalid) {
         let authData = {
-          name: this.name,
           email: this.email,
           password: this.password
         };
         this.error = "";
-        this.$store.dispatch("auth/signUp", authData);
+        this.$store.dispatch("auth/signIn", authData);
       } else {
         this.error = "*Please check the form again!";
       }
@@ -86,14 +85,6 @@ export default {
     email: {
       required,
       email
-      //   unique: val => {
-      //     if (val === "") return true;
-      //     return axios
-      //       .get('/users.json?orderBy="email"&equalTo="' + val + '"')
-      //       .then(res => {
-      //         return Object.keys(res.data).length === 0;
-      //       });
-      //   }
     },
     password: {
       required,
