@@ -18,15 +18,27 @@ export const mutations = {
 }
 
 export const actions = {
-    async signIn({ commit }, authData) {
-        await this.$axios.post("https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyCbO7DQOZWbVs7Yeey60muwbXqxsNVJxGk", authData)
+    async signIn({ commit }, loginData) {
+        let authData;
+        await this.$axios.post("https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyCbO7DQOZWbVs7Yeey60muwbXqxsNVJxGk", loginData)
             .then(res => {
-                let authData = {
+                authData = {
                     token: res.data.idToken,
                     uid: res.data.localId,
                 }
-                // await this.$axios.get("")
-                commit('AUTH_USER', authData)
+            })
+            .then(() => {
+                this.$axios.get('/users.json?orderBy="email"&equalTo="' + loginData.email + '"')
+                    .then(res => {
+                        for (let key in res.data) {
+                            authData.user = {
+                                name: res.data[key].name,
+                                email: res.data[key].email
+                            }
+                        }
+                        console.log(authData)
+                        commit('AUTH_USER', authData)
+                    })
             })
     },
     signOut({ commit }) {

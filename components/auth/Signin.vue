@@ -56,6 +56,7 @@ export default {
         };
         this.error = "";
         this.$store.dispatch("auth/signIn", authData);
+        this.$emit("closeDialog"); 
       } else {
         this.error = "*Please check the form again!";
       }
