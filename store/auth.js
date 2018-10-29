@@ -37,11 +37,12 @@ export const actions = {
                             }
                         }
                         console.log(authData)
-                        commit('AUTH_USER', authData)
+                        commit('AUTH_USER', authData)                        
                     })
             })
     },
     signOut({ commit }) {
         commit('CLEAR_AUTH')
+        commit('todos/CLEAR_TODOS', null, {root : true})
     }
 }

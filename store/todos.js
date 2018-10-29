@@ -18,6 +18,9 @@ export const mutations = {
     },
     'LOAD_TODOS'(state, responseData) {
         state.todos = responseData;
+    },
+    'CLEAR_TODOS'(state){
+        state.todos = [];
     }
 }
 
@@ -31,12 +34,15 @@ export const actions = {
     updateTask({ commit }, index) {
         commit('UPDATE_TASK', index);
     },
-    async loadTodos({ commit }) {
-        await this.$axios.get('/todos.json')
+    async loadTodos({ commit }, uid) {
+        await this.$axios.get('/todos/' + uid + '.json')
             .then(res => {
                 if (res.status === 200) {
                     commit('LOAD_TODOS', res.data)
                 }
             })
+    },
+    clearTodos({commit}){
+        commit('CLEAR_TODOS')
     }
 }

@@ -80,6 +80,7 @@ export default {
               email: userData.email
             });
           })
+          .then(() => new Promise(resolve => setTimeout(resolve, 1000)))
           .then(() => {
             this.$store.dispatch("auth/signIn", {
               email: userData.email,

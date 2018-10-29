@@ -36,11 +36,11 @@ export default {
   methods: {
     async saveData() {
       await this.$axios
-        .put("/todos.json", this.$store.state.todos.todos)
+        .put("/todos/" + this.$store.state.auth.uid + ".json", this.$store.state.todos.todos)
         .then(res => console.log(res));
     },
     loadData() {
-      this.$store.dispatch("todos/loadTodos");
+      this.$store.dispatch("todos/loadTodos", this.$store.state.auth.uid);
     }
   },
   computed: {
