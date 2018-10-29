@@ -19,12 +19,13 @@ export const mutations = {
 
 export const actions = {
     async signIn({ commit }, authData) {
-        await this.$axios.post("://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyCbO7DQOZWbVs7Yeey60muwbXqxsNVJxGk", authData)
+        await this.$axios.post("https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyCbO7DQOZWbVs7Yeey60muwbXqxsNVJxGk", authData)
             .then(res => {
-                authData = {
+                let authData = {
                     token: res.data.idToken,
-                    uid: res.data.localId
+                    uid: res.data.localId,
                 }
+                // await this.$axios.get("")
                 commit('AUTH_USER', authData)
             })
     },

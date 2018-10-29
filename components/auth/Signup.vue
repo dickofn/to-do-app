@@ -74,21 +74,18 @@ export default {
             "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyCbO7DQOZWbVs7Yeey60muwbXqxsNVJxGk",
             userData
           )
-          .then(res => {
-            let authData = {
-              token: res.data.idToken,
-              uid: res.data.localId,
-              user: userData
-            };
-            this.$store.dispatch("auth/signIn", authData);
+          .then(() => {
+            this.$axios
+              .post("/users.json", {
+                name: userData.name,
+                email: userData.email
+              })
+            this.$store.dispatch("auth/signIn", {
+              email: userData.email,
+              password: userData.password
+            });
+            this.$emit("closeDialog");
           });
-        userData = {
-          name: this.name,
-          email: this.email,        
-        };
-        this.$axios.post("/users.json", userData).then(() => {
-          this.$emit("closeDialog");
-        });
       } else {
         this.error = "*Please check the form again!";
       }

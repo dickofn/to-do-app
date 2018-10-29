@@ -79,9 +79,6 @@ export default {
     }
   },
   validations: {
-    name: {
-      required
-    },
     email: {
       required,
       email
