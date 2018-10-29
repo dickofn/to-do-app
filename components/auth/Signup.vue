@@ -75,11 +75,12 @@ export default {
             userData
           )
           .then(() => {
-            this.$axios
-              .post("/users.json", {
-                name: userData.name,
-                email: userData.email
-              })
+            this.$axios.post("/users.json", {
+              name: userData.name,
+              email: userData.email
+            });
+          })
+          .then(() => {
             this.$store.dispatch("auth/signIn", {
               email: userData.email,
               password: userData.password
